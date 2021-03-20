@@ -20,7 +20,16 @@ const params = {
 
 const fetchStrings = async () => {
     return new Promise((resolve, reject) => {
-        S3.selectObject
+        S3.selectObjectContent(params, (err, data) => {
+            if(err) {
+                console.error(err, err.stack);
+                reject(err);
+            }
+            else {
+                console.log(data);
+                resolve(data);
+            }
+        })
     })
 }
 
@@ -28,8 +37,9 @@ exports.handler = async (_, context) => {
     console.log(`string inverter`);
 
     try{
-
+        const words = await fetchStrings();
+        console.log(`Payload ${JSON.stringify(words.Payload)}`);
     } catch(e) {
-
+        console.error('ERROR');
     }
 }
