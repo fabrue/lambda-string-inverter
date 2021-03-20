@@ -1,6 +1,6 @@
 data "archive_file" "zip_string_inverter_lambda" {
   type        = "zip"
-  source_file = "${path.module}/lambda-string-inverter/string-inverter.js"
+  source_file = "${path.module}/lambda/string-inverter/string-inverter.js"
   output_path = "${path.module}/lambda/string-inverter/string-inverter.zip"
 }
 
