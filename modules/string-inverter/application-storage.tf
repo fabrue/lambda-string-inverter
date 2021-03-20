@@ -12,3 +12,10 @@ resource "aws_s3_bucket" "application_storage" {
     }
   }
 }
+
+resource "aws_s3_bucket_object" "object" {
+  bucket = "dd-challenge-application-storage"
+  key    = "words.csv"
+  source = "${path.module}/lambda/string-inverter/words.csv"
+  etag = filemd5("${path.module}/lambda/string-inverter/words.csv")
+}
