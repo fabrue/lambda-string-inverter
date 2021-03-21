@@ -4,14 +4,9 @@ const S3 = new awssdk.S3();
 const wordsToArray = async (words) => {
    let returnArr = [];
    
-   const extractWord = (input) => {
-       // Input row's structure is { "_1":"word"}, this function extracts the word
-       return JSON.parse(input)._1;
-   }
-
-    returnArr = words.split(',').map((word) => {
+    returnArr = words.split('\n').map((word) => {
         if(word) {
-            return extractWord(word);
+            return word;
         }
     })
 
@@ -23,15 +18,15 @@ const fetchWords = async (bucket, key) => {
         Bucket: bucket,
         Expression: 'SELECT * FROM s3object',
         ExpressionType: 'SQL',
+        Key: key,
         InputSerialization: {
-            JSON: {
-                Type: 'DOCUMENT',
+            CSV: {
+                RecordDelimiter: '\n',
               }
         },
-        Key: key,
         OutputSerialization: {
-            JSON: {
-                RecordDelimiter: ','
+            CSV: {
+                RecordDelimiter: '\n',
               }
         }
     }
