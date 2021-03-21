@@ -109,7 +109,9 @@ exports.handler = async (event, context) => {
         console.log(`Saving result to S3 now`);
         await writeFileToS3(await wordStringToCsv(invertedWords.toString()));
 
+        return `word inversion was successful`
     } catch(e) {
         console.error(`Error: ${e.message}`);
+        return `something went wrong`
     }
 }
