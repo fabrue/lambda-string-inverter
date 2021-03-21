@@ -94,8 +94,6 @@ const writeFileToS3 = async (body) => {
 }
 
 exports.handler = async (event, context) => {
-    console.log(`string inverter`);
-
     try{
         const words = await fetchWords(params);
         console.log(`Fetched the following words: ${words}`);
