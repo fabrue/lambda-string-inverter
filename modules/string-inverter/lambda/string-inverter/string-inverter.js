@@ -69,7 +69,7 @@ const wordStringToCsv = async (wordString) => {
     return wordString.replace(/,/g, '\n');
 }
 
-const writeFileToS3 = async (body) => {
+const writeFileToS3 = async (body, bucket) => {
     console.log(`body has value: ${body}`);
 
     // Create a unique filename (since bucket versioning is enablend not necessarily required, but still useful)
@@ -77,7 +77,7 @@ const writeFileToS3 = async (body) => {
 
     const params = {
         Body: body.toString(),
-        Bucket: 'dd-challenge-application-storage',
+        Bucket: bucket,
         Key: key,
     }
 
@@ -105,7 +105,7 @@ exports.handler = async (event, context) => {
         console.log(`Inversion result: ${invertedWords}`);
 
         console.log(`Saving result to S3 now`);
-        await writeFileToS3(await wordStringToCsv(invertedWords.toString()));
+        await writeFileToS3(await wordStringToCsv(invertedWords.toString()), bucketname);
 
         return `word inversion was successful`
     } catch(e) {
