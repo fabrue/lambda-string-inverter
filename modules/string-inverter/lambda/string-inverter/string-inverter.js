@@ -70,10 +70,13 @@ const invertWord = (word) => {
 const writeFileToS3 = async (body) => {
     console.log(`body has value: ${body}`);
 
+    // Create a unique filename (since bucket versioning is enablend not necessarily required, but still useful)
+    const key = `${new Date().getTime()}-inverted-words.csv`; 
+
     const params = {
         Body: body.toString(),
         Bucket: 'dd-challenge-application-storage',
-        Key: 'inverted-words.csv',
+        Key: key,
     }
 
     return new Promise((resolve, reject) => {
