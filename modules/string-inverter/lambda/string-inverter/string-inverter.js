@@ -1,23 +1,6 @@
 const awssdk = require('aws-sdk');
 const S3 = new awssdk.S3();
 
-const params = {
-    Bucket: 'dd-challenge-application-storage',
-    Expression: 'SELECT * FROM s3object',
-    ExpressionType: 'SQL',
-    InputSerialization: {
-        JSON: {
-            Type: 'DOCUMENT',
-          }
-    },
-    Key: 'words.csv',
-    OutputSerialization: {
-        JSON: {
-            RecordDelimiter: ','
-          }
-    }
-}
-
 const wordsToArray = async (words) => {
    let returnArr = [];
    
@@ -35,8 +18,23 @@ const wordsToArray = async (words) => {
     return returnArr;
 }
 
-const fetchWords = async (params) => {
-    if (!params) { throw new Error('No params provided'); }
+const fetchWords = async (bucket, key) => {
+    const params = {
+        Bucket: bucket,
+        Expression: 'SELECT * FROM s3object',
+        ExpressionType: 'SQL',
+        InputSerialization: {
+            JSON: {
+                Type: 'DOCUMENT',
+              }
+        },
+        Key: key,
+        OutputSerialization: {
+            JSON: {
+                RecordDelimiter: ','
+              }
+        }
+    }
 
     return new Promise((resolve, reject) => {
         S3.selectObjectContent(params, (err, data) => {
@@ -71,7 +69,7 @@ const wordStringToCsv = async (wordString) => {
     return wordString.replace(/,/g, '\n');
 }
 
-const writeFileToS3 = async (body) => {
+const writeFileToS3 = async (body, bucket) => {
     console.log(`body has value: ${body}`);
 
     // Create a unique filename (since bucket versioning is enablend not necessarily required, but still useful)
@@ -79,7 +77,7 @@ const writeFileToS3 = async (body) => {
 
     const params = {
         Body: body.toString(),
-        Bucket: 'dd-challenge-application-storage',
+        Bucket: bucket,
         Key: key,
     }
 
@@ -94,17 +92,24 @@ const writeFileToS3 = async (body) => {
 }
 
 exports.handler = async (event, context) => {
+    const bucketname = process.env.bucketname;
+    const key = process.env.key; // This is the filename where the words are stored - e.g. 'words.csv'
+
+    console.log(`Using env vars: bucketname -> ${bucketname} // key -> ${key}`);
+
     try{
-        const words = await fetchWords(params);
+        const words = await fetchWords(bucketname, key);
         console.log(`Fetched the following words: ${words}`);
 
         const invertedWords = words.map((word) => invertWord(word));
         console.log(`Inversion result: ${invertedWords}`);
 
         console.log(`Saving result to S3 now`);
-        await writeFileToS3(await wordStringToCsv(invertedWords.toString()));
+        await writeFileToS3(await wordStringToCsv(invertedWords.toString()), bucketname);
 
+        return `word inversion was successful`
     } catch(e) {
         console.error(`Error: ${e.message}`);
+        return `something went wrong`
     }
 }
