@@ -1,23 +1,6 @@
 const awssdk = require('aws-sdk');
 const S3 = new awssdk.S3();
 
-const params = {
-    Bucket: 'dd-challenge-application-storage',
-    Expression: 'SELECT * FROM s3object',
-    ExpressionType: 'SQL',
-    InputSerialization: {
-        JSON: {
-            Type: 'DOCUMENT',
-          }
-    },
-    Key: 'words.csv',
-    OutputSerialization: {
-        JSON: {
-            RecordDelimiter: ','
-          }
-    }
-}
-
 const wordsToArray = async (words) => {
    let returnArr = [];
    
@@ -35,8 +18,23 @@ const wordsToArray = async (words) => {
     return returnArr;
 }
 
-const fetchWords = async (params) => {
-    if (!params) { throw new Error('No params provided'); }
+const fetchWords = async (bucket, key) => {
+    const params = {
+        Bucket: bucket,
+        Expression: 'SELECT * FROM s3object',
+        ExpressionType: 'SQL',
+        InputSerialization: {
+            JSON: {
+                Type: 'DOCUMENT',
+              }
+        },
+        Key: key,
+        OutputSerialization: {
+            JSON: {
+                RecordDelimiter: ','
+              }
+        }
+    }
 
     return new Promise((resolve, reject) => {
         S3.selectObjectContent(params, (err, data) => {
@@ -100,7 +98,7 @@ exports.handler = async (event, context) => {
     console.log(`Using env vars: bucketname -> ${bucketname} // key -> ${key}`);
 
     try{
-        const words = await fetchWords(params);
+        const words = await fetchWords(bucketname, key);
         console.log(`Fetched the following words: ${words}`);
 
         const invertedWords = words.map((word) => invertWord(word));
