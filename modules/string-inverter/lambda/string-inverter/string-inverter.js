@@ -67,6 +67,10 @@ const invertWord = (word) => {
     return invertedWord;
 }
 
+const wordStringToCsv = async (wordString) => {
+    return wordString.replace(/,/g, '\n');
+}
+
 const writeFileToS3 = async (body) => {
     console.log(`body has value: ${body}`);
 
@@ -100,7 +104,7 @@ exports.handler = async (event, context) => {
         console.log(`Inversion result: ${invertedWords}`);
 
         console.log(`Saving result to S3 now`);
-        await writeFileToS3(invertedWords);
+        await writeFileToS3(await wordStringToCsv(invertedWords.toString()));
 
     } catch(e) {
         console.error(`Error: ${e.message}`);
