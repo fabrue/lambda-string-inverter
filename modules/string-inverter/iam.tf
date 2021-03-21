@@ -28,6 +28,15 @@ inline_policy {
           Effect   = "Allow"
           Resource = "*"
         },
+        {
+          "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents"
+          ],
+          "Resource": "arn:aws:logs:*:*:*",
+          "Effect": "Allow"
+        }
       ]
     })
   }
