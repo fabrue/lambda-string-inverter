@@ -57,14 +57,28 @@ const fetchWords = async (params) => {
     })
 }
 
+const invertWord = (word) => {
+    let invertedWord = '';
+
+    if(word) {
+        invertedWord = Array.from(word).reduceRight((val, acc) => val + acc);
+    }
+    console.log(`Inverted ${word} to ${invertWord}`);
+    return invertedWord;
+}
+
 exports.handler = async (event, context) => {
     console.log(`string inverter`);
 
     try{
         const words = await fetchWords(params);
-        console.log(words);
+        console.log(`Fetched the following words: ${words}`);
+
+        const invertedWords = words.map((word) => invertWord(word));
+        console.log(`Inversion result: ${invertedWords}`);
+
+
     } catch(e) {
-        console.error('ERROR');
-        console.log(e.message);
+        console.error(`Error: ${e.message}`);
     }
 }
