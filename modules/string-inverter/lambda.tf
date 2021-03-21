@@ -12,3 +12,7 @@ resource "aws_lambda_function" "string_inverter" {
   function_name = "string-inverter"
   runtime = "nodejs14.x"
 }
+
+resource "aws_cloudwatch_log_group" "string_inverter_logs" {
+  name = "/aws/lambda/string-inverter"
+}

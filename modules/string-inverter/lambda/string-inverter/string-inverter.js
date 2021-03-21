@@ -87,15 +87,13 @@ const writeFileToS3 = async (body) => {
         S3.putObject(params, (err, data) => {
             if (err) { reject(err); }
 
-            console.log(`putObject data: ${data}`);
+            console.log(`putObject data: ${JSON.stringify(data)}`);
             resolve(data);
         })
     })
 }
 
 exports.handler = async (event, context) => {
-    console.log(`string inverter`);
-
     try{
         const words = await fetchWords(params);
         console.log(`Fetched the following words: ${words}`);
