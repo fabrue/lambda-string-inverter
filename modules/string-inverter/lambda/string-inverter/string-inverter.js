@@ -67,6 +67,25 @@ const invertWord = (word) => {
     return invertedWord;
 }
 
+const writeFileToS3 = async (body) => {
+    console.log(`body has value: ${body}`);
+
+    const params = {
+        Body: body.toString(),
+        Bucket: 'dd-challenge-application-storage',
+        Key: 'inverted-words.csv',
+    }
+
+    return new Promise((resolve, reject) => {
+        S3.putObject(params, (err, data) => {
+            if (err) { reject(err); }
+
+            console.log(`putObject data: ${data}`);
+            resolve(data);
+        })
+    })
+}
+
 exports.handler = async (event, context) => {
     console.log(`string inverter`);
 
@@ -77,6 +96,8 @@ exports.handler = async (event, context) => {
         const invertedWords = words.map((word) => invertWord(word));
         console.log(`Inversion result: ${invertedWords}`);
 
+        console.log(`Saving result to S3 now`);
+        await writeFileToS3(invertedWords);
 
     } catch(e) {
         console.error(`Error: ${e.message}`);
