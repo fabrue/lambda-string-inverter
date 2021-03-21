@@ -11,6 +11,13 @@ resource "aws_lambda_function" "string_inverter" {
   handler       = "string-inverter.handler"
   function_name = "string-inverter"
   runtime = "nodejs14.x"
+
+  environment {
+    variables = {
+      "bucketname" = "dd-challenge-application-storage"
+      "key" = "words.csv"
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "string_inverter_logs" {
