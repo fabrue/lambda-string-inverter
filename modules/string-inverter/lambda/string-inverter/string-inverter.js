@@ -25,18 +25,13 @@ const wordsToArray = async (words) => {
        // Input row's structure is { "_1":"word"}, this function extracts the word
        return JSON.parse(input)._1;
    }
-   
-   const wordArr = words.split(','); //?
-   wordArr.forEach((word, i) => {
-       console.log(`${i} word is ${word}`);
 
-       if(word) {
-           console.log(`${i} word is true`)
-           const parsedWord = JSON.parse(word)._1 //?
-           const functionParsedWord = extractWord(word); //?
-           returnArr.push(functionParsedWord); //? 
+    returnArr = words.split(',').map((word) => {
+        if(word) {
+            return extractWord(word);
         }
-    });
+    })
+
     return returnArr;
 }
 
