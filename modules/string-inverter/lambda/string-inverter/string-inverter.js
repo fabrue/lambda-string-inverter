@@ -87,8 +87,11 @@ const writeFileToS3 = async (body, bucket) => {
 }
 
 exports.handler = async (event, context) => {
-    const bucketname = process.env.bucketname;
-    const key = process.env.key; // This is the filename where the words are stored - e.g. 'words.csv'
+    
+    console.log(`Event: ${JSON.stringify(event)}`);
+
+    const bucketname = event.bucketname || process.env.bucketname;
+    const key = event.key || process.env.key; // This is the filename where the words are stored - e.g. 'words.csv'
 
     console.log(`Using env vars: bucketname -> ${bucketname} // key -> ${key}`);
 
