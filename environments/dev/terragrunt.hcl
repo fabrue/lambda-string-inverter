@@ -3,7 +3,7 @@ include {
 }
 
 terraform {
-  source = "../../modules/string-inverter"
+    source = "../..//modules/string-inverter"
 }
 
 inputs = {
