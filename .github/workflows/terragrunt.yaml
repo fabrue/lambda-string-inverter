@@ -26,7 +26,6 @@ jobs:
 
       - name: Debug
         run: |
-          echo: 'aws whoami?'
           aws sts get-caller-identity
           echo 'ls:'
           ls -1
