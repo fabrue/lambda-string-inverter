@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "application_storage" {
-  bucket = "dd-challenge-application-storage"
+  bucket = var.bucket
   acl = "private"
   versioning {
     enabled = true
@@ -14,10 +14,10 @@ resource "aws_s3_bucket" "application_storage" {
 }
 
 resource "aws_s3_bucket_object" "object" {
-  bucket = "dd-challenge-application-storage"
-  key    = "words.csv"
-  source = "${path.module}/lambda/string-inverter/words.csv"
-  etag = filemd5("${path.module}/lambda/string-inverter/words.csv")
+  bucket = var.bucket
+  key    = var.key
+  source = "${path.module}/lambda/string-inverter/${var.key}"
+  etag = filemd5("${path.module}/lambda/string-inverter/${var.key}")
 
   # ensure that bucket exists before copying file to it
   depends_on = [

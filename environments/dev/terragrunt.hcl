@@ -6,8 +6,13 @@ terraform {
     source = "../..//modules/string-inverter"
 }
 
+locals {
+  env_name = "dev"
+}
+
 inputs = {
-   env_name = "DEV"
-   bucket = "dd-challenge-application-storage"
+   env_name = local.env_name
+   bucket = "${local.env_name}-dd-challenge-application-storage"
    key = "words.csv"
+   function_name = "${local.env_name}-string-inverter"
 }

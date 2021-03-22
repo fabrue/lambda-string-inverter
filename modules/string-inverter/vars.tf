@@ -12,3 +12,8 @@ variable "key" {
   description = "Key (in this case a file name) where the words are stored - e.g. words.csv"
   type        = string
 }
+
+variable "function_name" {
+  description = "Name of the string-inverter lambda function"
+  type        = string
+}
