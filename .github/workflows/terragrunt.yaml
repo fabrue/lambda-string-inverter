@@ -15,5 +15,9 @@ jobs:
         run: |
           echo 'Installing terragrunt now'
           brew install terragrunt
+      
+      - name: Terragrunt plan
+        run: |
+          terragrunt run-all plan
 
   
