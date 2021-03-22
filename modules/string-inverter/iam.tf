@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_execution" {
-  name = "string_inverter_execution_role"
+  name = "${var.function_name}-execution-role"
 
   assume_role_policy = <<EOF
 {
@@ -18,15 +18,18 @@ resource "aws_iam_role" "lambda_execution" {
 EOF
 
 inline_policy {
-    name = "string_inverter_policy"
+    name = "${var.function_name}-policy"
 
     policy = jsonencode({
       Version = "2012-10-17"
       Statement = [
         {
-          Action   = ["s3:*"]
+          Action   = [
+            "s3:PutObject",
+            "s3:GetObject"
+          ]
           Effect   = "Allow"
-          Resource = "*"
+          Resource = "arn:aws:s3:::${var.bucket}/*"
         },
         {
           "Action": [
@@ -34,7 +37,7 @@ inline_policy {
             "logs:CreateLogStream",
             "logs:PutLogEvents"
           ],
-          "Resource": "arn:aws:logs:*:*:*",
+          "Resource": "arn:aws:logs:eu-central-1:694928554219:log-group:/aws/lambda/${var.function_name}:*",
           "Effect": "Allow"
         }
       ]
