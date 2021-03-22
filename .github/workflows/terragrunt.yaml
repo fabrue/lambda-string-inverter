@@ -1,0 +1,19 @@
+name: Terragrunt CICD
+
+on:
+  push:
+    branches: [ chore/terragrunt-cicd ]
+  pull_request:
+    branches: [ chore/terragrunt-cicd ]
+
+jobs:
+  use-terragrunt:
+    name: Use terragrunt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install terragrunt
+        run: |
+          echo 'Installing terragrunt now'
+          brew install terragrunt
+
+  
