@@ -36,4 +36,8 @@ jobs:
         run: |
           terragrunt run-all plan
 
+      - name: Terragrunt apply
+        run: |
+          terragrunt run-all apply
+
   
