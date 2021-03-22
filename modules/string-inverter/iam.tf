@@ -26,7 +26,7 @@ inline_policy {
         {
           Action   = ["s3:*"]
           Effect   = "Allow"
-          Resource = "arn:aws:s3:::${var.bucket}"
+          Resource = "arn:aws:s3:::${var.bucket}/*"
         },
         {
           "Action": [
