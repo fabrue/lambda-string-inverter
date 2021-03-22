@@ -17,8 +17,8 @@ resource "aws_lambda_function" "string_inverter" {
 
   environment {
     variables = {
-      "bucketname" = "dd-challenge-application-storage"
-      "key" = "words.csv"
+      "bucketname" = var.bucket
+      "key" = var.key
     }
   }
 }

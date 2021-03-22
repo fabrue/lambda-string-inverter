@@ -8,4 +8,6 @@ terraform {
 
 inputs = {
    env_name = "DEV"
+   bucket = "dd-challenge-application-storage"
+   key = "words.csv"
 }
