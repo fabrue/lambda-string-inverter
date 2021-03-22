@@ -1,3 +1,6 @@
+locals {
+  function_name = "string-inverter-${var.env_name}"
+}
 data "archive_file" "zip_string_inverter_lambda" {
   type        = "zip"
   source_file = "${path.module}/lambda/string-inverter/string-inverter.js"
@@ -9,7 +12,7 @@ resource "aws_lambda_function" "string_inverter" {
   source_code_hash = data.archive_file.zip_string_inverter_lambda.output_base64sha256
   role          = aws_iam_role.lambda_execution.arn
   handler       = "string-inverter.handler"
-  function_name = "string-inverter"
+  function_name = local.function_name
   runtime = "nodejs14.x"
 
   environment {
@@ -21,5 +24,5 @@ resource "aws_lambda_function" "string_inverter" {
 }
 
 resource "aws_cloudwatch_log_group" "string_inverter_logs" {
-  name = "/aws/lambda/string-inverter"
+  name = "/aws/lambda/${local.function_name}"
 }

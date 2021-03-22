@@ -7,5 +7,5 @@ terraform {
 }
 
 inputs = {
-    # key = value
+   env_name = "DEV"
 }
