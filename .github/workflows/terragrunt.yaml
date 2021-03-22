@@ -19,6 +19,8 @@ jobs:
       
       - name: Debug
         run: |
+          echo: 'terraform cli?'
+          terraform -v
           echo 'ls:'
           ls -1
           echo 'pwd:'
