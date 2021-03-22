@@ -34,7 +34,7 @@ inline_policy {
             "logs:CreateLogStream",
             "logs:PutLogEvents"
           ],
-          "Resource": "arn:aws:logs:*:*:*",
+          "Resource": "arn:aws:logs:eu-central-1:694928554219:log-group:/aws/lambda/${var.function_name}:*",
           "Effect": "Allow"
         }
       ]
