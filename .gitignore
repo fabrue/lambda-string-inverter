@@ -29,3 +29,6 @@ override.tf.json
 # example: *tfplan*
 
 *.zip
+
+# Exclude terragrunt files
+.terragrunt-cache
