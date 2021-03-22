@@ -38,6 +38,6 @@ jobs:
 
       - name: Terragrunt apply
         run: |
-          terragrunt run-all apply
+          terragrunt run-all apply --auto-approve
 
   
