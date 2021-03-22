@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_execution" {
-  name = "string_inverter_execution_role"
+  name = "${var.function_name}-execution-role"
 
   assume_role_policy = <<EOF
 {
@@ -18,7 +18,7 @@ resource "aws_iam_role" "lambda_execution" {
 EOF
 
 inline_policy {
-    name = "string_inverter_policy"
+    name = "${var.function_name}-policy"
 
     policy = jsonencode({
       Version = "2012-10-17"
