@@ -18,4 +18,9 @@ resource "aws_s3_bucket_object" "object" {
   key    = "words.csv"
   source = "${path.module}/lambda/string-inverter/words.csv"
   etag = filemd5("${path.module}/lambda/string-inverter/words.csv")
+
+  # ensure that bucket exists before copying file to it
+  depends_on = [
+    aws_s3_bucket.application_storage
+  ]
 }
