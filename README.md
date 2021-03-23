@@ -1,4 +1,4 @@
 # String Inverter
-This repo contains a terraform configuration to deploy a lambda function that inverts strings!!
+This repo contains a terraform configuration to deploy an application that inverts strings.
 
-![architecture-diagram](https://user-images.githubusercontent.com/13106029/112223117-c1543080-8c29-11eb-8fab-cf9b21da1238.png)
+![new-architecture-diagram](https://user-images.githubusercontent.com/13106029/112223315-05dfcc00-8c2a-11eb-8f70-3d8d57c92f31.png)
