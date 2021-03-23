@@ -74,6 +74,7 @@ const writeFileToS3 = async (body, bucket) => {
         Body: body.toString(),
         Bucket: bucket,
         Key: key,
+        ContentType: 'text/csv'
     }
 
     return new Promise((resolve, reject) => {
