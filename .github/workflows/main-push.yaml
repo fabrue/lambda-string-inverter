@@ -25,5 +25,5 @@ jobs:
         run: terragrunt run-all plan
 
       - name: Terragrunt Apply
-        id: plan
+        id: apply
         run: terragrunt run-all apply
