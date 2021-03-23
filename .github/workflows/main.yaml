@@ -19,10 +19,6 @@ jobs:
         run: |
           echo 'Installing terragrunt now'
           brew install terragrunt
-      
-      - name: Terragrunt Validate
-        id: validate
-        run: terragrunt run-all validate
 
       - name: Terragrunt Plan
         id: plan
@@ -36,7 +32,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const output = `
-            #### Terragrunt Validation 🤖${{ steps.validate.outcome }}
             #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
             
             <details><summary>Show Plan</summary>
@@ -45,3 +40,4 @@ jobs:
             
             </details>
             
+
