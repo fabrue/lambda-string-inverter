@@ -15,6 +15,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
 
+      - name: Install terragrunt CLI
+        run: |
+          echo 'Installing terragrunt now'
+          brew install terragrunt
+      
       - name: Terragrunt Validate
         id: validate
         run: terragrunt run-all validate
