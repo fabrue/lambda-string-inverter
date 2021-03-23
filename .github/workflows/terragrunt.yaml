@@ -1,43 +1,43 @@
-name: Terragrunt CICD
+# name: Terragrunt CICD
 
-on:
-  push:
-    branches: [ chore/terragrunt-cicd ]
-  pull_request:
-    branches: [ chore/terragrunt-cicd ]
+# on:
+#   push:
+#     branches: [ chore/terragrunt-cicd ]
+#   pull_request:
+#     branches: [ chore/terragrunt-cicd ]
 
-jobs:
-  use-terragrunt:
-    name: Use terragrunt
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install terragrunt
-        run: |
-          echo 'Installing terragrunt now'
-          brew install terragrunt
+# jobs:
+#   use-terragrunt:
+#     name: Use terragrunt
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Install terragrunt
+#         run: |
+#           echo 'Installing terragrunt now'
+#           brew install terragrunt
       
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: eu-central-1
 
-      - name: Debug
-        run: |
-          aws sts get-caller-identity
-          echo 'ls:'
-          ls -1
-          echo 'pwd:'
-          pwd
+#       - name: Debug
+#         run: |
+#           aws sts get-caller-identity
+#           echo 'ls:'
+#           ls -1
+#           echo 'pwd:'
+#           pwd
 
-      - name: Terragrunt plan
-        run: |
-          terragrunt run-all plan
+#       - name: Terragrunt plan
+#         run: |
+#           terragrunt run-all plan
 
-      - name: Terragrunt apply
-        run: |
-          terragrunt run-all apply --terragrunt-non-interactive
+#       - name: Terragrunt apply
+#         run: |
+#           terragrunt run-all apply --terragrunt-non-interactive
 
   
