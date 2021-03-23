@@ -23,21 +23,6 @@ jobs:
       - name: Terragrunt Plan
         id: plan
         run: terragrunt run-all plan
-      
-      - uses: actions/github-script@0.9.0
-        if: github.event_name == 'pull_request'
-        env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `
-            #### Terragrunt Plan 📖\`${{ steps.plan.outcome }}\`
-            
-            <details><summary>Show Plan</summary>
-            
-            \`\`\`${process.env.PLAN}\`\`\`
-            
-            </details>
+
             
 
