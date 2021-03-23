@@ -1,7 +1,7 @@
 name: Deploy Terraform
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
@@ -24,5 +24,6 @@ jobs:
         id: plan
         run: terragrunt run-all plan
 
-            
-
+      - name: Terragrunt Apply
+        id: plan
+        run: terragrunt run-all apply
