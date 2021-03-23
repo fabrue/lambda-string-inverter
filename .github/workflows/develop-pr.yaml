@@ -1,8 +1,8 @@
 name: Deploy Terraform
 
 on:
-  push:
-    branches: [ main ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   terraform-validate-and-plan:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./environments/prod
+        working-directory: ./environments/dev
     env: 
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -25,8 +25,4 @@ jobs:
 
       - name: Terragrunt Plan
         id: plan
-        run: terragrunt run-all plan
-
-      - name: Terragrunt Apply
-        id: apply
-        run: terragrunt run-all apply --terragrunt-non-interactive 
+        run: terragrunt plan --terragrunt-non-interactive
