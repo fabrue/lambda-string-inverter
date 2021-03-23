@@ -2,7 +2,7 @@ name: Deploy Terraform
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   terraform-validate-and-plan:
@@ -25,4 +25,4 @@ jobs:
 
       - name: Terragrunt Plan
         id: plan
-        run: terragrunt run-all plan
+        run: terragrunt plan --terragrunt-non-interactive

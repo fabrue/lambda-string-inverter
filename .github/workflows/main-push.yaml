@@ -1,29 +1,29 @@
-name: Deploy Terraform
+# name: Deploy Terraform
 
-on:
-  push:
-    branches: [ main ]
+# on:
+#   push:
+#     branches: [ main ]
 
-jobs:
-  terraform-validate-and-plan:
-    name: Validate and Plan TF
-    runs-on: ubuntu-latest
-    env: 
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: hashicorp/setup-terraform@v1
+# jobs:
+#   terraform-validate-and-plan:
+#     name: Validate and Plan TF
+#     runs-on: ubuntu-latest
+#     env: 
+#       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: hashicorp/setup-terraform@v1
 
-      - name: Install terragrunt CLI
-        run: |
-          echo 'Installing terragrunt now'
-          brew install terragrunt
+#       - name: Install terragrunt CLI
+#         run: |
+#           echo 'Installing terragrunt now'
+#           brew install terragrunt
 
-      - name: Terragrunt Plan
-        id: plan
-        run: terragrunt run-all plan
+#       - name: Terragrunt Plan
+#         id: plan
+#         run: terragrunt run-all plan
 
-      - name: Terragrunt Apply
-        id: apply
-        run: terragrunt run-all apply --terragrunt-non-interactive 
+#       - name: Terragrunt Apply
+#         id: apply
+#         run: terragrunt run-all apply --terragrunt-non-interactive 
