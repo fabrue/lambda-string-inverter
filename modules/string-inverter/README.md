@@ -1,0 +1,2 @@
+# String Inverter
+This folder contains a terraform configuration to deploy an application that inverts strings. You can provide a list of words as comma separated values and the application inverts each word and returns a new timestamped csv-file containing the results. The used components are shown in the diagram below.
