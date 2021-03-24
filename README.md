@@ -8,7 +8,9 @@ The application itself is stored in the `modules/string-inverter` subfolder. It 
 
 To provide an easy possibility to deploy the app into different environments (e.g. PROD/DEV/QA/UNAMEIT) this example uses Terragrunt. Each environment has its own folder. Take a look at the `environments/*` subfolder for more details.
 
-To deploy all environments run `terragrunt run-all apply` in the root folder. To deploy a single environment run `terragrunt run-all validate --terragrunt-working-dir ./environments/dev` .
+## Deployment
+- To deploy all environments run `terragrunt run-all apply` in the root folder 
+- To deploy a single environment run `terragrunt run-all validate --terragrunt-working-dir ./environments/dev` 
 
 
 ## Resources
